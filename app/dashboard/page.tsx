@@ -133,13 +133,14 @@ export default function Dashboard() {
             Recherche XPath
           </h2>
           <div className="flex flex-col sm:flex-row items-stretch gap-4">
-            <input
-              type="text"
-              value={xpath}
-              onChange={(e) => setXpath(e.target.value)}
-              placeholder="Ex: //experience[@poste='Developer']"
-              className="flex-1 p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-300"
-            />
+          <input
+  type="text"
+  value={xpath}
+  onChange={(e) => setXpath(e.target.value)}
+  placeholder="Ex: //experience[@poste='Developer']"
+  className="flex-1 p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-300 
+             text-gray-800 text-base font-medium placeholder-gray-400"
+/>
             <button
               onClick={handleSearch}
               className="bg-blue-600 text-white px-6 py-3 rounded-xl hover:bg-blue-700 transition disabled:opacity-50"
@@ -216,31 +217,55 @@ export default function Dashboard() {
 
         {/* Search Results */}
         {filterResults.length > 0 && (
-          <motion.section
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="mt-10 space-y-6"
-          >
-            <h2 className="text-xl font-semibold text-gray-800">🔎 Résultats de Recherche</h2>
-            {filterResults.map((result, idx) => (
-              <div key={idx} className="p-4 bg-white rounded-3xl shadow border">
-                <h3 className="font-bold text-lg text-gray-800 mb-3">CV ID: {result.cv_id}</h3>
-                {result.matches.map((match, i) => (
-                  <div key={i} className="mb-4 bg-gray-50 p-4 rounded-xl border">
-                    <p className="text-sm text-gray-500 mb-1">Type de correspondance: {match.match_type}</p>
-                    <pre className="bg-gray-100 p-2 rounded text-sm overflow-auto">{match.match}</pre>
-                    {match.parent && (
-                      <>
-                        <p className="mt-2 text-sm text-gray-500">Contexte parent:</p>
-                        <pre className="bg-gray-100 p-2 rounded text-sm overflow-auto">{match.parent}</pre>
-                      </>
-                    )}
-                  </div>
-                ))}
+  <motion.section
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    className="mt-10 space-y-6"
+  >
+    <h2 className="text-xl font-semibold text-gray-800 mb-6">🔎 Résultats de Recherche</h2>
+    <div className="grid gap-6">
+      {filterResults.map((result, idx) => (
+        <div key={idx} className="p-6 bg-white rounded-3xl shadow border">
+          <h3 className="font-bold text-lg text-gray-800 mb-4 flex items-center gap-2">
+            <span className="bg-blue-100 text-blue-800 p-2 rounded-full">
+              #{result.cv_id}
+            </span>
+            Correspondances trouvées
+          </h3>
+          
+          <div className="space-y-4">
+            {result.matches.map((match, i) => (
+              <div key={i} className="p-4 bg-gray-50 rounded-xl border">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">
+                    {match.match_type}
+                  </span>
+                </div>
+                
+                <div className="bg-white p-3 rounded-lg border mb-3">
+                  <pre className="text-gray-800 font-mono text-sm whitespace-pre-wrap break-words">
+                    {match.match}
+                  </pre>
+                </div>
+                
+                {match.parent && (
+                  <>
+                    <p className="text-sm text-gray-500 mb-1">Contexte :</p>
+                    <div className="bg-white p-3 rounded-lg border">
+                      <pre className="text-gray-600 font-mono text-sm whitespace-pre-wrap break-words">
+                        {match.parent}
+                      </pre>
+                    </div>
+                  </>
+                )}
               </div>
             ))}
-          </motion.section>
-        )}
+          </div>
+        </div>
+      ))}
+    </div>
+  </motion.section>
+)}
       </motion.div>
     </main>
   </div>

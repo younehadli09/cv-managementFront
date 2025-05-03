@@ -691,6 +691,9 @@ export default function SubmitCV() {
 
           <div className="text-center mt-8">
             <button className="cv-button" onClick={handleFormSubmit}>Soumettre le CV</button>
+            {response && (
+  <p className="mt-4 text-center text-green-600 font-semibold">{response}</p>
+)}  
           </div>
         </>
       )}

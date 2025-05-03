@@ -57,7 +57,9 @@ body {
 .cv-grid-2 {
   @apply grid grid-cols-1 md:grid-cols-2 gap-6 mb-6;
 }
-
+input, textarea {
+  color: #1f2937; /* gray-800 */
+}
 /* Single field group */
 .cv-field {
   @apply mb-4;
